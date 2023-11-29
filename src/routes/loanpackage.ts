@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+import { authenticateJWT } from '../services/jwt/jwtAuthenticate';
+import { LoanPackageController } from '../controllers/LoanpackageController';
+const loanPackageController = new LoanPackageController();
+router.get('/:id', loanPackageController.readOne);
+router.get('/', loanPackageController.readAllData);
+router.post('/', loanPackageController.addData);
+router.put('/:id', loanPackageController.updateData);
+router.delete('/:id', loanPackageController.deleteData);
+module.exports = router;

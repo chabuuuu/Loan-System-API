@@ -64,8 +64,39 @@ const BorrowerSchema = {
     ],
     additionalProperties: false,
 };
+const LoanPackageSchema = {
+    $id: 'LoanPackageSchema',
+    type: 'object',
+    properties: {
+        name: { type: 'string' },
+        guarantee_type: { type: 'string' },
+        interest_rate: { type: 'string' },
+        duration: { type: 'string' },
+        description: { type: 'string' },
+        max_money: { type: 'string' },
+        min_money: { type: 'string' },
+        interest_period: { type: 'string' },
+    },
+    required: [
+        'name',
+        'guarantee_type',
+        'interest_rate',
+        'duration',
+        'description',
+        'max_money',
+        'min_money',
+        'interest_period',
+    ],
+    additionalProperties: false,
+};
 const ajv = new Ajv({
-    schemas: [EmployeeSchema, LenderSchema, BorrowerSchema],
+    schemas: [EmployeeSchema, LenderSchema, BorrowerSchema, LoanPackageSchema],
 });
 //const validate = ajv.compile(EmployeeSchema);
-module.exports = { ajv, EmployeeSchema, LenderSchema, BorrowerSchema };
+module.exports = {
+    ajv,
+    EmployeeSchema,
+    LenderSchema,
+    BorrowerSchema,
+    LoanPackageSchema,
+};
