@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "types": ["reflect-metadata"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "esModuleInterop":true,
+    "strictPropertyInitialization": false,
+    
+  },
+  "include": [
+    "src/**/*.ts"
+, "src/config/prismaconfig.prisma"],
+"exclude": [
+    "node_modules"
+]
+
+}

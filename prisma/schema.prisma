@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// enum Gender{
+//   Nam
+//   Nu
+// }
+
+model Employee {
+  id              Int           @id @default(autoincrement())
+  full_name       String        @db.VarChar(100)
+  date_of_birth   DateTime
+  gender          String
+  address         String
+  phone_number    String
+  email           String?
+  job_title       String
+  start_date      DateTime
+  salary          Int
+  profile_picture String?
+  password        String
+  LoanContract    LoanContract? @relation(fields: [loanContractId], references: [id])
+  loanContractId  Int?
+}
+
+model Borrower {
+  id             Int           @id @default(autoincrement())
+  full_name      String
+  job_title      String
+  address        String
+  phone_number   String
+  income         Decimal       @db.Money
+  outcome        Decimal       @db.Money
+  CCCD           String
+  LoanContract   LoanContract? @relation(fields: [loanContractId], references: [id])
+  loanContractId Int?
+}
+
+model Lender {
+  id             Int           @id @default(autoincrement())
+  bank           String
+  branch         String
+  address        String
+  full_name      String
+  job_title      String
+  LoanContract   LoanContract? @relation(fields: [loanContractId], references: [id])
+  loanContractId Int?
+}
+
+model LoanPackage {
+  id              Int           @id @default(autoincrement())
+  name            String
+  guarantee_type  String
+  interest_rate   Decimal
+  duration        Int
+  description     String
+  max_money       Decimal       @db.Money
+  min_money       Decimal       @db.Money
+  interest_period Int
+  LoanContract    LoanContract? @relation(fields: [loanContractId], references: [id])
+  loanContractId  Int?
+}
+
+model LoanContract {
+  id              Int           @id @default(autoincrement())
+  borrower_id     Borrower[]
+  employee_id     Employee[]
+  lender_id       Lender[]
+  loanpackage_id  LoanPackage[]
+  money           Decimal       @db.Money
+  purpose         String
+  loan_date       DateTime
+  expire_date     DateTime
+  contract_status String
+  loan_method     String
+}
+
+

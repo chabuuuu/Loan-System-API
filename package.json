@@ -1,0 +1,75 @@
+{
+  "name": "base-source",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "dev": "nodemon --exec npx ts-node ./src/server.ts",
+    "start": "nodemon ./dist/server.js",
+    "prod": "npm run build && npm run start",
+    "prepare": "husky install",
+    "beautiful": "lint-staged",
+    "benchmark": "npx autocannon -a 100000 -d 60 --header 'Content-Type: application/x-www-form-urlencoded' --body 'full_name=Benchmark&date_of_birth=2004-03-03&gender=Nam&address=123 Binh Thoi&phone_number=090923232&email=benchmark@gmail.com&job_title=Benchmark Engineer&start_date=2023-03-03&salary=12000000&profile_picture=test' -m 'POST' http://localhost:3000/add-data"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chabuuuu/base-source-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chabuuuu/base-source-nodejs/issues"
+  },
+  "homepage": "https://github.com/chabuuuu/base-source-nodejs#readme",
+  "dependencies": {
+    "@ffprobe-installer/ffprobe": "^2.1.2",
+    "@prisma/client": "^5.2.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.17",
+    "@types/multer": "^1.4.7",
+    "@types/progress-stream": "^2.0.2",
+    "ajv": "^8.12.0",
+    "autocannon": "^7.12.0",
+    "bcrypt": "^5.1.1",
+    "cli-progress": "^3.12.0",
+    "dotenv": "^16.3.1",
+    "email-validator": "^2.0.4",
+    "exec-sh": "^0.4.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "get-video-duration": "^4.1.0",
+    "husky": "^8.0.3",
+    "inversify": "^6.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "lint-staged": "^14.0.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.5.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-async-exec": "^1.2.0",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3",
+    "prettier": "^3.0.3",
+    "prisma": "^5.2.0",
+    "progress": "^2.0.3",
+    "redis": "^4.6.10",
+    "redis-om": "^0.4.2",
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.32.5",
+    "shell-exec": "^1.1.2",
+    "shelljs": "^0.8.5",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,scss,ts}": "prettier --write --single-quote --tab-width 4 --trailing-comma all"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7"
+  }
+}
