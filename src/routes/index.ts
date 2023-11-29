@@ -3,12 +3,14 @@ const employeeRouter = require('./employee');
 const mediaRouter = require('./media');
 const siteRouter = require('./site');
 const lenderRouter = require('./lender');
+const borrowerRouter = require('./borrower');
 
 function route(app: any) {
     app.use('/api/v1/employees', employeeRouter);
     app.use('/api/v1/media', mediaRouter);
     app.use('/api/v1/site', siteRouter);
     app.use('/api/v1/lender', lenderRouter);
+    app.use('/api/v1/borrower', borrowerRouter);
     app.all('*', (req: any, res: any, next: any) => {
         const status = 'fail';
         const statusCode = 404;

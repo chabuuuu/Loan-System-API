@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+import { authenticateJWT } from '../services/jwt/jwtAuthenticate';
+import { BorrowerrController } from '../controllers/BorrowerController';
+const borrowerController = new BorrowerrController();
+router.get('/', borrowerController.readAllData);
+router.post('/', borrowerController.addData);
+router.put('/:id', borrowerController.updateData);
+router.delete('/:id', borrowerController.deleteData);
+module.exports = router;

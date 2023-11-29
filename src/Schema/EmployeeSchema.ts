@@ -41,6 +41,31 @@ const LenderSchema = {
     required: ['full_name', 'address', 'job_title', 'bank', 'branch'],
     additionalProperties: false,
 };
-const ajv = new Ajv({ schemas: [EmployeeSchema, LenderSchema] });
+const BorrowerSchema = {
+    $id: 'BorrowerSchema',
+    type: 'object',
+    properties: {
+        full_name: { type: 'string' },
+        address: { type: 'string' },
+        job_title: { type: 'string' },
+        phone_number: { type: 'string' },
+        income: { type: 'string' },
+        outcome: { type: 'string' },
+        CCCD: { type: 'string' },
+    },
+    required: [
+        'full_name',
+        'address',
+        'job_title',
+        'phone_number',
+        'income',
+        'outcome',
+        'CCCD',
+    ],
+    additionalProperties: false,
+};
+const ajv = new Ajv({
+    schemas: [EmployeeSchema, LenderSchema, BorrowerSchema],
+});
 //const validate = ajv.compile(EmployeeSchema);
-module.exports = { ajv, EmployeeSchema, LenderSchema };
+module.exports = { ajv, EmployeeSchema, LenderSchema, BorrowerSchema };
