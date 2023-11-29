@@ -43,6 +43,7 @@ model Borrower {
   CCCD           String
   LoanContract   LoanContract? @relation(fields: [loanContractId], references: [id])
   loanContractId Int?
+  payment        Payment[]
 }
 
 model Lender {
@@ -82,6 +83,20 @@ model LoanContract {
   expire_date     DateTime
   contract_status String
   loan_method     String
+  payment         Payment[]
 }
 
-
+model Payment {
+  id                  Int           @id @default(autoincrement())
+  pay_date            Decimal       @db.Money
+  money               Decimal       @db.Money
+  principal_amount    Decimal       @db.Money
+  profit_amount       Decimal       @db.Money
+  payment_method      String
+  financial_situation String
+  property_status     String
+  Borrower            Borrower?     @relation(fields: [borrowerId], references: [id])
+  borrowerId          Int?
+  LoanContract        LoanContract? @relation(fields: [loanContractId], references: [id])
+  loanContractId      Int?
+}
