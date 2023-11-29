@@ -20,9 +20,13 @@ import {
 } from '../../../config/types/employee.type';
 import BaseError from '../../../utils/BaseError';
 const prisma = new PrismaClient();
-const { schema, validate } = require('../../../Schema/EmployeeSchema');
+const {
+    ajv,
+    EmployeeSchema,
+    LenderSchema,
+} = require('../../../Schema/EmployeeSchema');
 const jwt = require('jsonwebtoken');
-
+const validate = ajv.getSchema('EmployeeSchema');
 @injectable()
 export class PrismaService implements ORMInterface {
     private hashPassWord: HashPasswordInterface;
@@ -45,7 +49,7 @@ export class PrismaService implements ORMInterface {
     }
     async addData(data: any): Promise<void> {
         if (validate(data) == false) {
-            const schemaProperties = Object.keys(schema.properties);
+            const schemaProperties = Object.keys(EmployeeSchema.properties);
             const userProperties = Object.keys(data);
             const missingColumns = schemaProperties.filter(
                 (column) => !userProperties.includes(column),
@@ -225,7 +229,7 @@ export class PrismaService implements ORMInterface {
         };
         Object.assign(updateSchema, data);
         if (validate(updateSchema) == false) {
-            const schemaProperties = Object.keys(schema.properties);
+            const schemaProperties = Object.keys(EmployeeSchema.properties);
             const userProperties = Object.keys(updateSchema);
             const missingColumns = schemaProperties.filter(
                 (column) => !userProperties.includes(column),

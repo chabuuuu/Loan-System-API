@@ -1,6 +1,6 @@
-const Ajv = require('ajv');
-const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-const schema = {
+const Ajv = require('ajv'); // options can be passed, e.g. {allErrors: true}
+const EmployeeSchema = {
+    $id: 'EmployeeSchema',
     type: 'object',
     properties: {
         full_name: { type: 'string' },
@@ -28,5 +28,19 @@ const schema = {
     ],
     additionalProperties: false,
 };
-const validate = ajv.compile(schema);
-module.exports = { schema, validate };
+const LenderSchema = {
+    $id: 'LenderSchema',
+    type: 'object',
+    properties: {
+        full_name: { type: 'string' },
+        address: { type: 'string' },
+        job_title: { type: 'string' },
+        bank: { type: 'string' },
+        branch: { type: 'string' },
+    },
+    required: ['full_name', 'address', 'job_title', 'bank', 'branch'],
+    additionalProperties: false,
+};
+const ajv = new Ajv({ schemas: [EmployeeSchema, LenderSchema] });
+//const validate = ajv.compile(EmployeeSchema);
+module.exports = { ajv, EmployeeSchema, LenderSchema };

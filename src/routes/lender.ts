@@ -6,5 +6,6 @@ const lenderConrtoller = new LenderController();
 
 router.get('/', lenderConrtoller.readAllData);
 router.post('/', lenderConrtoller.addData);
-
+router.put('/:id', lenderConrtoller.updateData);
+router.delete('/:id', lenderConrtoller.deleteData);
 module.exports = router;
