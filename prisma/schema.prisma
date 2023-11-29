@@ -16,8 +16,8 @@ datasource db {
 // }
 
 model Employee {
-  id              Int           @id @default(autoincrement())
-  full_name       String        @db.VarChar(100)
+  id              Int            @id @default(autoincrement())
+  full_name       String         @db.VarChar(100)
   date_of_birth   DateTime
   gender          String
   address         String
@@ -28,62 +28,62 @@ model Employee {
   salary          Int
   profile_picture String?
   password        String
-  LoanContract    LoanContract? @relation(fields: [loanContractId], references: [id])
-  loanContractId  Int?
+  loan_contract   LoanContract[]
 }
 
 model Borrower {
-  id             Int           @id @default(autoincrement())
-  full_name      String
-  job_title      String
-  address        String
-  phone_number   String
-  income         Decimal       @db.Money
-  outcome        Decimal       @db.Money
-  CCCD           String
-  LoanContract   LoanContract? @relation(fields: [loanContractId], references: [id])
-  loanContractId Int?
-  payment        Payment[]
+  id            Int            @id @default(autoincrement())
+  full_name     String
+  job_title     String
+  address       String
+  phone_number  String
+  income        Decimal        @db.Money
+  outcome       Decimal        @db.Money
+  CCCD          String
+  loan_contract LoanContract[]
+  payment       Payment[]
 }
 
 model Lender {
-  id             Int           @id @default(autoincrement())
-  bank           String
-  branch         String
-  address        String
-  full_name      String
-  job_title      String
-  LoanContract   LoanContract? @relation(fields: [loanContractId], references: [id])
-  loanContractId Int?
+  id            Int            @id @default(autoincrement())
+  bank          String
+  branch        String
+  address       String
+  full_name     String
+  job_title     String
+  loan_contract LoanContract[]
 }
 
 model LoanPackage {
-  id              Int           @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   name            String
   guarantee_type  String
   interest_rate   Decimal
   duration        Int
   description     String
-  max_money       Decimal       @db.Money
-  min_money       Decimal       @db.Money
+  max_money       Decimal        @db.Money
+  min_money       Decimal        @db.Money
   interest_period Int
-  LoanContract    LoanContract? @relation(fields: [loanContractId], references: [id])
-  loanContractId  Int?
+  loan_contract   LoanContract[]
 }
 
 model LoanContract {
-  id              Int           @id @default(autoincrement())
-  borrower_id     Borrower[]
-  employee_id     Employee[]
-  lender_id       Lender[]
-  loanpackage_id  LoanPackage[]
-  money           Decimal       @db.Money
+  id              Int          @id @default(autoincrement())
+  money           Decimal      @db.Money
   purpose         String
   loan_date       DateTime
   expire_date     DateTime
   contract_status String
   loan_method     String
   payment         Payment[]
+  Employee        Employee?    @relation(fields: [employeeId], references: [id])
+  employeeId      Int?
+  Borrower        Borrower?    @relation(fields: [borrowerId], references: [id])
+  borrowerId      Int?
+  Lender          Lender?      @relation(fields: [lenderId], references: [id])
+  lenderId        Int?
+  LoanPackage     LoanPackage? @relation(fields: [loanPackageId], references: [id])
+  loanPackageId   Int?
 }
 
 model Payment {
