@@ -55,6 +55,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-async-exec": "^1.2.0",
+    "node-telegram-bot-api": "^0.64.0",
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
     "prettier": "^3.0.3",
