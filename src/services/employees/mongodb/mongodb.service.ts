@@ -3,12 +3,12 @@ import Employee from './employee.schema';
 export class MongodbService {
     private Employee: mongoose.Model<any>;
     constructor() {
-        this.connect();
-        this.Employee = mongoose.model('Employee', Employee);
+        // this.connect();
+        // this.Employee = mongoose.model('Employee', Employee);
     }
     async connect() {
-        await mongoose.connect('mongodb://127.0.0.1:27017/basesource');
-        console.log('Connected to mongodb');
+        // await mongoose.connect('mongodb://127.0.0.1:27017/basesource');
+        // console.log('Connected to mongodb');
     }
     async addData(data: any, id: any) {
         // data.id = Number(id);

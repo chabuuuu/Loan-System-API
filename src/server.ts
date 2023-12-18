@@ -6,13 +6,14 @@ import { error } from 'console';
 import { ErrorWithStatus } from './interfaces/ErrorWithStatus.interface';
 import BaseError from './utils/BaseError';
 import { RedisService } from './services/employees/redis/redis.service';
+import { receiveNoti } from './services/message/receive.service';
 const path = require('path');
 const route = require('./routes/index');
 const app = express();
 const handlebars = require('express-handlebars');
 const morgan = require('morgan');
 var methodOverride = require('method-override');
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     express.urlencoded({
@@ -45,7 +46,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 // redisService.test();
 
 route(app);
-
+receiveNoti();
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

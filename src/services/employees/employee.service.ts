@@ -8,9 +8,9 @@ import { MongodbService } from './mongodb/mongodb.service';
 @injectable()
 export class EmployeeService {
     private orm: ORMInterface;
-    private redis: RedisService;
+    //private redis: RedisService;
     private totalEMployee: number;
-    private mongodb: MongodbService;
+    //private mongodb: MongodbService;
 
     constructor(
         @inject('ORMInterface') private readonly ormService: ORMInterface,
@@ -18,7 +18,7 @@ export class EmployeeService {
         this.totalEMployee = 0;
         this.orm = ormService;
         //this.redis = new RedisService();
-        this.mongodb = new MongodbService();
+        //this.mongodb = new MongodbService();
         //this.countRecord();
     }
     async countRecord() {
@@ -40,7 +40,7 @@ export class EmployeeService {
         var result: any;
         try {
             result = await this.orm.addData(data);
-            await this.mongodb.addData(data, result.id);
+            //await this.mongodb.addData(data, result.id);
             //await this.redis.addData(data, result.id);
             //this.totalEMployee++;
         } catch (err: any) {
@@ -80,7 +80,7 @@ export class EmployeeService {
         try {
             const respond = await this.orm.updateData(id, data);
             //await this.redis.update(id, data);
-            await this.mongodb.update(id, data);
+            //await this.mongodb.update(id, data);
             return respond;
         } catch (error) {
             throw error;
@@ -90,7 +90,7 @@ export class EmployeeService {
         try {
             const respond = await this.orm.deleteData(id);
             //await this.redis.delete(id);
-            await this.mongodb.delete(id);
+            //await this.mongodb.delete(id);
             //this.totalEMployee--;
             return respond;
         } catch (error) {
