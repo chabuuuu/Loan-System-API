@@ -1,3 +1,5 @@
+import { postMsg } from "../message/post.service";
+
 // importing required modules
 const { execute } = require('@getvim/execute');
 const dotenv = require('dotenv').config();
@@ -26,11 +28,19 @@ const backupDir = process.env.BACKUP_DB
 const date = new Date();
 const today = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getTime()}`;
 const backupFile= `loan_system-${today}.tar`;
+const root = process.env.BACKUP_ROOT
 
     await exec(`PGPASSWORD=${dbPass} pg_dump -U ${username} -F t LOAN_SYSTEM > ${backupDir}/${backupFile}`)
     console.log('Done create backup');
-    bot.sendMessage(chat_id, "Your database backup file: ");
-    bot.sendDocument(chat_id, `${backupDir}/${backupFile}` )
+    //bot.sendMessage(chat_id, "Your database backup file: ");
+    console.log(`${backupDir}/${backupFile}`);
+    //await postMsg(`../../../storage/backup/${backupFile}`);
+    await postMsg(`${root}/${backupFile}`);
+
+    
+    // bot.sendDocument(chat_id, `${backupDir}/${backupFile}` )
+    //bot.sendDocument(chat_id, `${backupDir}/index.html` )
+
 }
 
 // calling postgresql backup function

@@ -6,7 +6,8 @@ import { error } from 'console';
 import { ErrorWithStatus } from './interfaces/ErrorWithStatus.interface';
 import BaseError from './utils/BaseError';
 import { RedisService } from './services/employees/redis/redis.service';
-import { receiveNoti } from './services/message/receive.service';
+import { receiveBackupNoti} from './services/message/backup-receive.service';
+import { receiveScheduleNoti } from './services/message/schedule-receive.service';
 const path = require('path');
 const route = require('./routes/index');
 const app = express();
@@ -46,7 +47,8 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 // redisService.test();
 
 route(app);
-receiveNoti();
+receiveBackupNoti();
+receiveScheduleNoti();
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
