@@ -27,7 +27,7 @@ export async function postMsg(file: any) {
 
         setTimeout(() => {
             conn.close();
-            process.exit(0);
+            //process.exit(0);
         }, 2000);
     } catch (error: any) {
         console.log(error.message);

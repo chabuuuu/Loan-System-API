@@ -9,6 +9,7 @@
     "dev": "nodemon --exec npx ts-node ./src/server.ts",
     "start": "nodemon ./dist/server.js",
     "prod": "npm run build && npm run start",
+    "migrate" : "npx prisma migrate dev --name init",
     "prepare": "husky install",
     "beautiful": "lint-staged",
     "benchmark": "npx autocannon -a 100000 -d 60 --header 'Content-Type: application/x-www-form-urlencoded' --body 'full_name=Benchmark&date_of_birth=2004-03-03&gender=Nam&address=123 Binh Thoi&phone_number=090923232&email=benchmark@gmail.com&job_title=Benchmark Engineer&start_date=2023-03-03&salary=12000000&profile_picture=test' -m 'POST' http://localhost:3000/add-data"

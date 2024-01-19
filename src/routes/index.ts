@@ -5,6 +5,8 @@ const siteRouter = require('./site');
 const lenderRouter = require('./lender');
 const borrowerRouter = require('./borrower');
 const loanpackageRouter = require('./loanpackage');
+const authenticaionRouter = require('./authentication');
+
 function route(app: any) {
     app.use('/api/v1/employees', employeeRouter);
     app.use('/api/v1/media', mediaRouter);
@@ -12,6 +14,7 @@ function route(app: any) {
     app.use('/api/v1/lender', lenderRouter);
     app.use('/api/v1/borrower', borrowerRouter);
     app.use('/api/v1/loanpackage', loanpackageRouter);
+    app.use('/api/v1/authenticaion', authenticaionRouter);
     app.all('*', (req: any, res: any, next: any) => {
         const status = 'fail';
         const statusCode = 404;
@@ -23,7 +26,8 @@ function route(app: any) {
         error.status = error.status || 'error';
         console.log('This error' + error);
         res.status(error.statusCode).json({
-            status: error.statusCode,
+            statusCode: error.statusCode,
+            status: error.status,
             message: error.message,
         });
     });

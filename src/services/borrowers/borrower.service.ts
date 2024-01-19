@@ -5,7 +5,12 @@ import { PrismaClient } from '@prisma/client';
 import BaseError from '../../utils/BaseError';
 import { Respond } from '../../utils/Respond';
 import { HttpStatusCode } from '../../utils/ErrorStatusCode';
+import { AccountService } from '../account/account.service';
+import { CreateBorrowerType } from '../../Type/CreateBorrowerType';
+const accountService = new AccountService();
 const { ajv, BorrowerSchema } = require('../../Schema/EmployeeSchema');
+import { HashPassword } from '../employees/HashPassword.service';
+const hashPassWord = new HashPassword();
 const validate = ajv.getSchema('BorrowerSchema');
 @injectable()
 export class BorrwerService implements BorrowerServiceInterface {
@@ -13,17 +18,32 @@ export class BorrwerService implements BorrowerServiceInterface {
     constructor() {
         this.prisma = new PrismaClient();
     }
-    async addData(data: any): Promise<void> {
+    async addData(data: CreateBorrowerType): Promise<void> {
         try {
-            await this.prisma.borrower.create({
-                data: data,
+            const hashedPassword : string = await hashPassWord.hash(data.password);
+            data.password = hashedPassword;
+            const newAccount = await accountService.create(data.username, data.password, 'Borrower');
+            data.accountId = newAccount.id;
+            console.log(data);
+            
+            const result : any =  await this.prisma.borrower.create({
+                data: {
+                    full_name: data.full_name,
+                    address: data.address,
+                    job_title: data.job_title,
+                    phone_number: data.phone_number,
+                    income: data.income,
+                    outcome: data.outcome,
+                    CCCD: data.CCCD,
+                    accountId: data.accountId,
+                },
             });
-            return Respond('success', 'Done add lender', data);
-        } catch (error) {
+            return Respond('success', 'Done create borrower', result);
+        } catch (error: any) {
             throw new BaseError(
                 HttpStatusCode.INTERNAL_SERVER,
                 'fail',
-                'Cant read borrowers',
+                'Cant create borrowers: ' + error.message,
             );
         }
     }

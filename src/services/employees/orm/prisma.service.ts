@@ -317,11 +317,11 @@ export class PrismaService implements ORMInterface {
             );
         }
     }
-    async login(email: string, password: string): Promise<void> {
+    async login(username: string, password: string): Promise<void> {
         try {
-            const result: any = await prisma.employee.findFirstOrThrow({
+            const result: any = await prisma.account.findFirstOrThrow({
                 where: {
-                    email: email,
+                    username: username,
                 },
             });
             const match: any = await this.hashPassWord.compare(
@@ -330,7 +330,7 @@ export class PrismaService implements ORMInterface {
             );
             if (match) {
                 const token = jwt.sign(
-                    { email: email, password: password },
+                    { username: username, password: password, accountId: result.accountId },
                     process.env.JWT_SECRET,
                     { expiresIn: process.env.JWT_EXPIRES_IN },
                 );

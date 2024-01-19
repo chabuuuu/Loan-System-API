@@ -17,7 +17,7 @@ export function authenticateJWT(req: any, res: any, next: any) {
             if (err) {
                 console.log(err);
 
-                throw new BaseError(403, 'fail', 'JWT Invalid. Error: ' + err);
+                throw new BaseError(403, 'failed', err.message);
                 // return res.status(403).json({ message: 'JWT không hợp lệ' });
             }
             req.user = user;

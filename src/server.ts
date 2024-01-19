@@ -8,6 +8,7 @@ import BaseError from './utils/BaseError';
 import { RedisService } from './services/employees/redis/redis.service';
 import { receiveBackupNoti} from './services/message/backup-receive.service';
 import { receiveScheduleNoti } from './services/message/schedule-receive.service';
+import { broadcastConsumer } from './services/message/broadcastConsumer';
 const path = require('path');
 const route = require('./routes/index');
 const app = express();
@@ -49,6 +50,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 route(app);
 receiveBackupNoti();
 receiveScheduleNoti();
+broadcastConsumer('B', 'fanout-exchange')
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

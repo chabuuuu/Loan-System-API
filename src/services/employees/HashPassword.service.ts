@@ -5,10 +5,10 @@ import 'reflect-metadata';
 const saltRounds = 10;
 @injectable()
 export class HashPassword implements HashPasswordInterface {
-    public async hash(password: string): Promise<void> {
+    public async hash(password: string): Promise<string> {
         try {
             const salt = await bcrypt.genSaltSync(saltRounds);
-            const hash: any = await bcrypt.hashSync(password, salt);
+            const hash: string = await bcrypt.hashSync(password, salt);
             return hash;
         } catch (error) {
             throw new Error('Cant hash password');

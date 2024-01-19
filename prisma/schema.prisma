@@ -29,6 +29,8 @@ model Employee {
   profile_picture String?
   password        String
   loan_contract   LoanContract[]
+  Account         Account?       @relation(fields: [accountId], references: [id])
+  accountId       Int?
 }
 
 model Borrower {
@@ -42,6 +44,8 @@ model Borrower {
   CCCD          String
   loan_contract LoanContract[]
   payment       Payment[]
+  Account       Account?       @relation(fields: [accountId], references: [id])
+  accountId     Int?
 }
 
 model Lender {
@@ -52,6 +56,8 @@ model Lender {
   full_name     String
   job_title     String
   loan_contract LoanContract[]
+  Account       Account?       @relation(fields: [accountId], references: [id])
+  accountId     Int?
 }
 
 model LoanPackage {
@@ -99,4 +105,14 @@ model Payment {
   borrowerId          Int?
   LoanContract        LoanContract? @relation(fields: [loanContractId], references: [id])
   loanContractId      Int?
+}
+
+model Account {
+  id       Int        @id @default(autoincrement())
+  username String     @unique
+  password String     
+  role     String
+  Employee Employee[]
+  Borrower Borrower[]
+  Lender   Lender[]
 }

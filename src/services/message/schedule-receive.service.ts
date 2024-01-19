@@ -20,7 +20,7 @@ export async function receiveScheduleNoti(){
         //5. Binding
         await backup_chanel.bindQueue(queue, nameExchange, '')
         await backup_chanel.consume(queue, (msg : any) => {
-            console.log("Schedule receive::: ", JSON.parse(msg.content.toString()));
+            console.log("Schedule receive::: ", msg.content.toString());
         }, {
             noAck: true
         })
