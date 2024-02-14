@@ -14,6 +14,8 @@ Service sử dụng RabbitMQ để lắng nghe các sự kiện tạo Loan Contr
 
 - [ExpressJS] - for API building
 - [Postgresql] - Database
+- [MongoDB] - Database
+- [RabbitMQ] - Message Broker
 - [Redis] - for caching
 - [Prisma/TypeORM] - ORM
 
