@@ -1,16 +1,78 @@
-# Description
-Đây là Nodejs Loan System API xài design partten IOC và cơ sở dữ liệu là postgres sử dụng 2 loại ORM là Typeorm và Prisma.
-# Config
-Việc chọn Typeorm hay Prisma là do config ở file .env 1 là typeorm 2 là prisma.
-# Chức năng:
-+ Quản lý  table nhân viên. gồm CRUD ( thêm xóa sửa....)
-+ Schema, email, password validation
-+ Upload hình ảnh/video.
-+ Xử lý size, type và resolution của ảnh/video được upload, tạo thumbnail grayscale từ video.
-+ Có thể chuyển qua lại giữa 2 ORM là Prisma và TypeORM
-+ Register/Login, tạo Token bằng JWT
-+ Hashing password bằng bcrypt.
-+ Filter data
-+ Rest API error handling
-+ Sử dụng Dependencies Injection với inversify, giúp dễ dàng thay đổi các Service về sau.
-+ Phân trang dữ liệu
+# LOAN SERVICE
+## A Service In Loan MIcroservice System
+
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
+Loan Service là một service thuộc Loan Microservice System, được viết bằng ExpressJS để quản lý Employee, Borrower, Lender và thực hiện tạo các Loan Contract, Payment, quản lý các Loan Package,...
+Service sử dụng RabbitMQ để lắng nghe các sự kiện tạo Loan Contract từ API GATEWAY
+## Features
+- Quản lý thông tin Employee, Borrower, Lender
+- Quản lý Loan Contract
+- Quản lý Loan Payment
+
+## Tech
+
+- [ExpressJS] - for API building
+- [Postgresql] - Database
+- [Redis] - for caching
+- [Prisma/TypeORM] - ORM
+
+## Enviroment variables
+Xem file .env.example
+```env
+PORT="" //SERVER PORT
+
+SELECTED_ORM ="" //SET ORM: "prisma" or "typeorm"
+
+//Postgres config:
+DB_HOST ="" 
+DB_PORT = 
+DB_USERNAME =""
+DB_PASSWORD =""
+DB_NAME =""
+DATABASE_URL=""
+
+
+ROOT="" //Project root path:
+
+JWT_SECRET ="" //JWT Secret Key
+JWT_EXPIRES_IN="" //Jwt expire
+
+
+REDIS_URL="" //Redis Connection String
+
+MONGODB_URL="" //MongoDB Connection String
+
+TELE_BOT_TOKEN="" //Telegram API Key
+
+TELE_CHAT_ID="" //Telegram User ID for Test
+
+//Config backup database export location:
+BACKUP_DB=""
+BACKUP_ROOT=""
+```
+
+## Installation
+
+Install the dependencies and devDependencies and start the server.
+
+```sh
+npm i
+npm run dev
+```
+
+For production environments...
+
+```sh
+cd Worker-API
+npm i
+npm run prod
+```
+
+For db migration...
+
+```sh
+npm run migrate
+```
+
+
